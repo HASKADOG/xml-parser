@@ -3,6 +3,11 @@ import os
 from lxml import etree
 
 #https://base.kvartus.ru/reklama/xml/base/9995/yrl_bitrix.xml
+#This is my first comercial python script
+
+#returns string without {http://webmaster.yandex.ru/schemas/feed/realty/2010-06}
+def my_print(string, shit):
+    print(string.replace(shit,''))
 
 def get_attrs(roots):
     for root in roots.getchildren():
@@ -55,19 +60,28 @@ def ids_validation(xml, url):
     return uniq_ids
 
 
-def parseBookXML(xmlFile):
+def get_offer_by_id(xmlFile, id):
     wget.download(xmlFile, 'C:\\Users\\Cplasplas\\PycharmProjects\\untitled\\urls.xml')
-
     with open('urls.xml', 'rb') as fobj:
         xml = fobj.read()
 
-    root = etree.fromstring(xml)
-    get_attrs(root)
+    root = etree.XML(xml)
+
+    shit = root.tag.replace('realty-feed','') # getting the yandex-attr i cant track.
+
+    for offer in root.getchildren():
+        if offer.attrib.get('internal-id') == str(id):
+            print(offer)
+            '''
+            for trololo in pepe.getchildren():
+                suchka = trololo.tag
+                if trololo.tag != shit + 'image':
+                    my_print(trololo.tag, shit)
+            '''
+
 
     os.remove('urls.xml')
 
 
 if __name__ == "__main__":
-    k = ids_validation('https://base.kvartus.ru/reklama/xml/base/9995/yrl_bitrix.xml', 'old-ids.txt')
-    for kk in k:
-        print(kk)
+   get_offer_by_id('https://base.kvartus.ru/reklama/xml/base/9995/yrl_bitrix.xml', 889283)
