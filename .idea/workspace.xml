@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7a304e30-1c78-4b0d-b93b-017fb2af6dad" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/needed_tags.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Attr.py" beforeDir="false" afterPath="$PROJECT_DIR$/Attr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ids-test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ids-test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +46,9 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.Attr">
+    <configuration name="form.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/untitled/form.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="Attr" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="untitled" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -114,6 +119,7 @@
       <list>
         <item itemvalue="Python.Attr" />
         <item itemvalue="Python.Ids-test" />
+        <item itemvalue="JavaScript Debug.form.html" />
         <item itemvalue="Python.Old-ids-test" />
       </list>
     </recent_temporary>
@@ -133,6 +139,7 @@
       <workItem from="1571580638926" duration="16521000" />
       <workItem from="1571761909214" duration="197000" />
       <workItem from="1571762377121" duration="6832000" />
+      <workItem from="1571846865579" duration="12368000" />
     </task>
     <servers />
   </component>
@@ -152,20 +159,9 @@
       </map>
     </option>
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Attr.py</url>
-          <line>73</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/untitled$Ids_test.coverage" NAME="Ids-test Coverage Results" MODIFIED="1571582906529" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/untitled$Ids_test.coverage" NAME="Ids-test Coverage Results" MODIFIED="1571853733193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/untitled$Old_ids_test.coverage" NAME="Old-ids-test Coverage Results" MODIFIED="1571581180025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/venv" />
-    <SUITE FILE_PATH="coverage/untitled$Attr.coverage" NAME="Attr Coverage Results" MODIFIED="1571770965795" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/untitled$Attr.coverage" NAME="Attr Coverage Results" MODIFIED="1571862553329" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
