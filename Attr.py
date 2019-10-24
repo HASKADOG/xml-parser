@@ -1,12 +1,14 @@
 import wget
 import os
 from lxml import etree
-
+import re
+from mechanize import Browser
 
 # https://base.kvartus.ru/reklama/xml/base/9995/yrl_bitrix.xml
 # This is my first comercial python script
 
 # returns string without {http://webmaster.yandex.ru/schemas/feed/realty/2010-06}
+
 def my_print(string, shit):
     print(string.replace(shit, ''))
 
@@ -92,8 +94,8 @@ def get_attrs(roots):
 
 
 # returns list of new ids
-def get_new_ids(url):
-    wget.download(url, 'C:\\Users\\Cplasplas\\PycharmProjects\\untitled\\urls.xml')  # new xml
+def get_new_ids():
+      # new xml
 
     with open('urls.xml', 'rb') as fobj:
         xml = fobj.read()
@@ -103,14 +105,12 @@ def get_new_ids(url):
     i = 0
     for roots in root.getchildren():
         rootattr = roots.attrib
-        if str(rootattr.get('internal-id')) == "None":
-            continue
-        else:
-            new_ids.append(int(rootattr.get('internal-id')))
+        if rootattr.get('internal-id'):
+            new_ids.append(rootattr.get('internal-id'))
 
         i = i + 1
 
-    os.remove('urls.xml')
+
     return new_ids
 
 
@@ -118,20 +118,20 @@ def get_new_ids(url):
 def get_old_ids(url):
     file = open(url, 'r')
     old = file.readlines()
-    old_ids = [int(old_id.replace('\n', '')) for old_id in old]
+    old_ids = [old_id.replace('\n', '') for old_id in old]
     return old_ids
 
 
 # returns uniq ids. this function compares two sets of old and new ids
-def ids_validation(xml, url):
-    uniq_ids = list(set(get_old_ids(url)) ^ set(get_new_ids(xml)))
+def ids_validation(old_ids):
+    uniq_ids = list(set(get_old_ids(old_ids)) ^ set(get_new_ids()))
 
     return uniq_ids
 
 
 # returns dictionary with the all required data
-def get_offer_by_id(xmlFile, id):
-    wget.download(xmlFile, 'C:\\Users\\Cplasplas\\PycharmProjects\\untitled\\urls.xml')
+def get_offer_by_id(id):
+    history = open('old-ids.txt', 'a')
     with open('urls.xml', 'rb') as fobj:
         xml = fobj.read()
 
@@ -142,6 +142,8 @@ def get_offer_by_id(xmlFile, id):
     for offered in root.getchildren():
         if offered.attrib.get('internal-id') == str(id):
             offer['offer_internal_id'] = offered.attrib.get('internal-id')
+            history.write(str(offered.attrib.get('internal-id')) + "\n")
+            history.close()
             for offer_body in offered.getchildren():
 
                 if offer_body.tag == shit + 'type':
@@ -161,170 +163,240 @@ def get_offer_by_id(xmlFile, id):
 
                 if offer_body.tag == shit + 'location':
                     for location in offer_body.getchildren():
-                        if location.tag == shit + 'country':
+                        if location.tag == shit + 'country' and location.text:
                             offer['location_country'] = location.text.replace(shit, '')
 
-                        if location.tag == shit + 'region':
+                        if location.tag == shit + 'region' and location.text:
                             offer['location_region'] = location.text.replace(shit, '')
 
-                        if location.tag == shit + 'district':
+                        if location.tag == shit + 'district' and location.text:
                             offer['location_district'] = location.text.replace(shit, '')
 
-                        if location.tag == shit + 'locality-name':
+                        if location.tag == shit + 'locality-name' and location.text:
                             offer['location_locality_name'] = location.text.replace(shit, '')
 
-                        if location.tag == shit + 'sub-locality-name':
+                        if location.tag == shit + 'sub-locality-name' and location.text:
                             offer['location_sub_locality_name'] = location.text.replace(shit, '')
 
-                        if location.tag == shit + 'non-admin-sub-locality':
+                        if location.tag == shit + 'non-admin-sub-locality' and location.text:
                             offer['location_non_admin_sub_locality'] = location.text.replace(shit, '')
 
-                        if location.tag == shit + 'address':
+                        if location.tag == shit + 'address' and location.text:
                             offer['location_address'] = location.text.replace(shit, '')
 
-                        if location.tag == shit + 'latitude':
+                        if location.tag == shit + 'latitude' and location.text:
                             offer['location_latitude'] = location.text.replace(shit, '')
 
-                        if location.tag == shit + 'longitude':
+                        if location.tag == shit + 'longitude' and location.text:
                             offer['location_longitude'] = location.text.replace(shit, '')
 
                 if offer_body.tag == shit + 'sales-agent':
                     for sales_agent in offer_body.getchildren():
-                        if sales_agent.tag == shit + 'name':
+                        if sales_agent.tag == shit + 'name' and sales_agent.text:
                             offer['sales_agent_name'] = sales_agent.text.replace(shit, '')
 
-                        if sales_agent.tag == shit + 'email':
+                        if sales_agent.tag == shit + 'email' and sales_agent.text:
                             offer['sales_agent_email'] = sales_agent.text.replace(shit, '')
 
                 if offer_body.tag == shit + 'price':
                     for price in offer_body.getchildren():
-                        if price.tag == shit + 'currency':
+                        if price.tag == shit + 'currency' and price.text:
                             offer['price_currency'] = price.text.replace(shit, '')
 
-                        if price.tag == shit + 'value':
+                        if price.tag == shit + 'value' and price.text:
                             offer['price_value'] = price.text.replace(shit, '')
 
-                        if price.tag == shit + 'period':
+                        if price.tag == shit + 'period' and price.text:
                             offer['price_period'] = price.text.replace(shit, '')
 
-                if offer_body.tag == shit + 'utilities-included':
+                if offer_body.tag == shit + 'utilities-included' and offer_body.text:
                     offer['utilities_included'] = offer_body.text
 
-                if offer_body.tag == shit + 'commission':
+                if offer_body.tag == shit + 'commission' and offer_body.text:
                     offer['commission'] = offer_body.text
 
-                if offer_body.tag == shit + 'room-furniture':
+                if offer_body.tag == shit + 'room-furniture' and offer_body.text:
                     offer['room_furniture'] = offer_body.text
 
-                if offer_body.tag == shit + 'water-supply':
+                if offer_body.tag == shit + 'water-supply' and offer_body.text:
                     offer['water_supply'] = offer_body.text
 
-                if offer_body.tag == shit + 'heating-supply':
+                if offer_body.tag == shit + 'heating-supply' and offer_body.text:
                     offer['heating_supply'] = offer_body.text
 
-                if offer_body.tag == shit + 'internet':
+                if offer_body.tag == shit + 'internet' and offer_body.text:
                     offer['internet'] = offer_body.text
 
                 if offer_body.tag == shit + 'area':
                     for area in offer_body.getchildren():
-                        if area.tag == shit + 'value':
+                        if area.tag == shit + 'value' and area.text:
                             offer['area_value'] = area.text
 
-                        if area.tag == shit + 'unit':
+                        if area.tag == shit + 'unit' and area.text:
                             offer['area_unit'] = area.text
 
-                if offer_body.tag == shit + 'floor':
+                if offer_body.tag == shit + 'floor' and offer_body.text:
                     offer['floor'] = offer_body.text
 
-                if offer_body.tag == shit + 'floors-total':
+                if offer_body.tag == shit + 'floors-total' and offer_body.text:
                     offer['floors_total'] = offer_body.text
 
-                if offer_body.tag == shit + 'ceiling-height':
+                if offer_body.tag == shit + 'ceiling-height' and offer_body.text:
                     offer['ceiling_height'] = offer_body.text
 
-                if offer_body.tag == shit + 'phone':
+                if offer_body.tag == shit + 'phone' and offer_body.text:
                     offer['phone'] = offer_body.text
 
-                if offer_body.tag == shit + 'balcony':
+                if offer_body.tag == shit + 'balcony' and offer_body.text:
                     offer['balcony'] = offer_body.text
 
-                if offer_body.tag == shit + 'description':
+                if offer_body.tag == shit + 'description' and offer_body.text:
                     offer['description'] = offer_body.text
 
-                if offer_body.tag == shit + 'platnayaparkovka':
+                if offer_body.tag == shit + 'platnayaparkovka' and offer_body.text:
                     offer['platnayaparkovka'] = offer_body.text
 
-                if offer_body.tag == shit + 'komunalnieplategy':
+                if offer_body.tag == shit + 'komunalnieplategy' and offer_body.text:
                     offer['komunalnieplategy'] = offer_body.text
 
-                if offer_body.tag == shit + 'vhod':
+                if offer_body.tag == shit + 'vhod' and offer_body.text:
                     offer['vhod'] = offer_body.text
 
-                if offer_body.tag == shit + 'komunalnieplategy':
-                    offer['komunalnieplategy'] = offer_body.text
-
-                if offer_body.tag == shit + 'elektricheskayamoshnost':
+                if offer_body.tag == shit + 'elektricheskayamoshnost' and offer_body.text:
                     offer['elektricheskayamoshnost'] = offer_body.text
 
-                if offer_body.tag == shit + 'besplatnayaparkovka':
+                if offer_body.tag == shit + 'besplatnayaparkovka' and offer_body.text:
                     offer['besplatnayaparkovka'] = offer_body.text
 
-                if offer_body.tag == shit + 'municipalnayaparkovka':
+                if offer_body.tag == shit + 'municipalnayaparkovka' and offer_body.text:
                     offer['municipalnayaparkovka'] = offer_body.text
 
-                if offer_body.tag == shit + 'zapasnoyvhod':
+                if offer_body.tag == shit + 'zapasnoyvhod' and offer_body.text:
                     offer['zapasnoyvhod'] = offer_body.text
 
-                if offer_body.tag == shit + 'pandus':
+                if offer_body.tag == shit + 'pandus' and offer_body.text:
                     offer['pandus'] = offer_body.text
 
-                if offer_body.tag == shit + 'menedgerobekta':
+                if offer_body.tag == shit + 'menedgerobekta' and offer_body.text:
                     offer['menedgerobekta'] = offer_body.text
 
-                if offer_body.tag == shit + 'dostup24chasa':
+                if offer_body.tag == shit + 'dostup24chasa' and offer_body.text:
                     offer['dostup24chasa'] = offer_body.text
 
-                if offer_body.tag == shit + 'kondicioner':
+                if offer_body.tag == shit + 'kondicioner' and offer_body.text:
                     offer['kondicioner'] = offer_body.text
 
-                if offer_body.tag == shit + 'viddeyatelnosty':
+                if offer_body.tag == shit + 'viddeyatelnosty' and offer_body.text:
                     offer['viddeyatelnosty'] = offer_body.text
 
-                if offer_body.tag == shit + 'srokokupaemosty':
+                if offer_body.tag == shit + 'srokokupaemosty' and offer_body.text:
                     offer['srokokupaemosty'] = offer_body.text
 
-                if offer_body.tag == shit + 'dohodnost':
+                if offer_body.tag == shit + 'dohodnost' and offer_body.text:
                     offer['dohodnost'] = offer_body.text
 
-                if offer_body.tag == shit + 'takgepodhodit':
+                if offer_body.tag == shit + 'takgepodhodit' and offer_body.text:
                     offer['takgepodhodit'] = offer_body.text
 
-                if offer_body.tag == shit + 'podzemnayaparkovka':
+                if offer_body.tag == shit + 'podzemnayaparkovka' and offer_body.text:
                     offer['podzemnayaparkovka'] = offer_body.text
 
-                if offer_body.tag == shit + 'cenasnds':
+                if offer_body.tag == shit + 'cenasnds' and offer_body.text:
                     offer['cenasnds'] = offer_body.text
 
-                if offer_body.tag == shit + 'nazvanieobekta':
+                if offer_body.tag == shit + 'nazvanieobekta' and offer_body.text:
                     offer['nazvanieobekta'] = offer_body.text
 
-                if offer_body.tag == shit + 'BuildingClass':
+                if offer_body.tag == shit + 'BuildingClass' and offer_body.text:
                     offer['BuildingClass'] = offer_body.text
 
-                if offer_body.tag == shit + 'tipzdaniya':
+                if offer_body.tag == shit + 'tipzdaniya' and offer_body.text:
                     offer['tipzdaniya'] = offer_body.text
 
-                if offer_body.tag == shit + 'sostoyanie':
+                if offer_body.tag == shit + 'sostoyanie' and offer_body.text:
                     offer['sostoyanie'] = offer_body.text
 
-                if offer_body.tag == shit + 'visotapotolkov':
+                if offer_body.tag == shit + 'visotapotolkov' and offer_body.text:
                     offer['visotapotolkov'] = offer_body.text
 
-    os.remove('urls.xml')
+
     return offer
+
+def download_file(url):
+    wget.download(url, 'C:\\Users\\Cplasplas\\PycharmProjects\\untitled\\urls.xml')
+
+
+def send_offer(offer):
+    br = Browser()
+    br.set_handle_robots(False)
+    br.open("http://test-parser-bit/")
+    br.select_form(id="bxform")
+    br.form['DEAL_UF_CRM_1571131808'] = offer['offer_internal_id']
+    br.form['DEAL_UF_CRM_1571131826'] = offer['type']
+    br.form['DEAL_UF_CRM_1571131838'] = offer['category']
+    br.form['DEAL_UF_CRM_1571131851'] = offer['commercial_type']
+    br.form['DEAL_UF_CRM_1571131867'] = offer['url']
+    br.form['DEAL_UF_CRM_1571131899'] = offer['payed_adv']
+    br.form['DEAL_UF_CRM_1571132280'] = offer['location_country']
+    br.form['DEAL_UF_CRM_1571132300'] = offer['location_region']
+    br.form['DEAL_TITLE'] = offer['location_district']
+    br.form['DEAL_TITLE'] = offer['location_locality_name']
+    br.form['DEAL_TITLE'] = offer['location_sub_locality_name']
+    br.form['DEAL_TITLE'] = offer['location_non_admin_sub_locality']
+    br.form['DEAL_TITLE'] = offer['location_address']
+    br.form['DEAL_TITLE'] = offer['location_latitude']
+    br.form['DEAL_TITLE'] = offer['location_longitude']
+    br.form['DEAL_TITLE'] = offer['sales_agent_name']
+    br.form['DEAL_TITLE'] = offer['sales_agent_email']
+    br.form['DEAL_TITLE'] = offer['price_currency']
+    br.form['DEAL_TITLE'] = offer['price_value']
+    br.form['DEAL_TITLE'] = offer['price_period']
+    br.form['DEAL_TITLE'] = offer['utilities_included']
+    br.form['DEAL_TITLE'] = offer['commission']
+    br.form['DEAL_TITLE'] = offer['room_furniture']
+    br.form['DEAL_TITLE'] = offer['water_supply']
+    br.form['DEAL_TITLE'] = offer['heating_supply']
+    br.form['DEAL_TITLE'] = offer['internet']
+    br.form['DEAL_TITLE'] = offer['area_value']
+    br.form['DEAL_TITLE'] = offer['area_unit']
+    br.form['DEAL_TITLE'] = offer['floor']
+    br.form['DEAL_TITLE'] = offer['floors_total']
+    br.form['DEAL_TITLE'] = offer['ceiling_height']
+    br.form['DEAL_TITLE'] = offer['phone']
+    br.form['DEAL_TITLE'] = offer['balcony']
+    br.form['DEAL_TITLE'] = offer['description']
+    br.form['DEAL_TITLE'] = offer['platnayaparkovka']
+    br.form['DEAL_TITLE'] = offer['komunalnieplategy']
+    br.form['DEAL_TITLE'] = offer['vhod']
+    br.form['DEAL_TITLE'] = offer['elektricheskayamoshnost']
+    br.form['DEAL_TITLE'] = offer['besplatnayaparkovka']
+    br.form['DEAL_TITLE'] = offer['municipalnayaparkovka']
+    br.form['DEAL_TITLE'] = offer['zapasnoyvhod']
+    br.form['DEAL_TITLE'] = offer['pandus']
+    br.form['DEAL_TITLE'] = offer['menedgerobekta']
+    br.form['DEAL_TITLE'] = offer['dostup24chasa']
+    br.form['DEAL_TITLE'] = offer['kondicioner']
+    br.form['DEAL_TITLE'] = offer['viddeyatelnosty']
+    br.form['DEAL_TITLE'] = offer['srokokupaemosty']
+    br.form['DEAL_TITLE'] = offer['dohodnost']
+    br.form['DEAL_TITLE'] = offer['takgepodhodit']
+    br.form['DEAL_TITLE'] = offer['podzemnayaparkovka']
+    br.form['DEAL_TITLE'] = offer['cenasnds']
+    br.form['DEAL_TITLE'] = offer['nazvanieobekta']
+    br.form['DEAL_TITLE'] = offer['BuildingClass']
+    br.form['DEAL_TITLE'] = offer['tipzdaniya']
+    br.form['DEAL_TITLE'] = offer['sostoyanie']
+    br.form['DEAL_TITLE'] = offer['visotapotolkov']
+
+    br.submit()
 
 
 if __name__ == "__main__":
-    offer = get_offer_by_id('https://base.kvartus.ru/reklama/xml/base/9995/yrl_bitrix.xml', 889283)
+    download_file('https://base.kvartus.ru/reklama/xml/base/9995/yrl_bitrix.xml')
+    for fff in ids_validation('old-ids.txt'):
+        print(get_offer_by_id(fff))
+        send_offer(get_offer_by_id(fff))
+    #print(get_offer_by_id('https://base.kvartus.ru/reklama/xml/base/9995/yrl_bitrix.xml', 2949158))
+    os.remove('urls.xml')
 
-    print(offer)
+
