@@ -123,8 +123,8 @@ def get_old_ids(url):
 
 
 # returns uniq ids. this function compares two sets of old and new ids
-def ids_validation(old_ids):
-    uniq_ids = list(set(get_old_ids(old_ids)) ^ set(get_new_ids()))
+def ids_validation(old_ids_url):
+    uniq_ids = list(set(get_old_ids(old_ids_url)) ^ set(get_new_ids()))
 
     return uniq_ids
 
@@ -329,7 +329,7 @@ def download_file(url):
 def send_offer(offer):
     br = Browser()
     br.set_handle_robots(False)
-    br.open("http://test-parser-bit/")
+    br.open("https://bitrix24public.com/ask-nedvizhimost.bitrix24.ru/form/7_parsing_lotov_v_sdelki/kv2p45/")
     br.select_form(id="bxform")
     br.form['DEAL_UF_CRM_1571131808'] = offer['offer_internal_id']
     br.form['DEAL_UF_CRM_1571131826'] = offer['type']
@@ -339,64 +339,74 @@ def send_offer(offer):
     br.form['DEAL_UF_CRM_1571131899'] = offer['payed_adv']
     br.form['DEAL_UF_CRM_1571132280'] = offer['location_country']
     br.form['DEAL_UF_CRM_1571132300'] = offer['location_region']
-    br.form['DEAL_TITLE'] = offer['location_district']
-    br.form['DEAL_TITLE'] = offer['location_locality_name']
-    br.form['DEAL_TITLE'] = offer['location_sub_locality_name']
-    br.form['DEAL_TITLE'] = offer['location_non_admin_sub_locality']
-    br.form['DEAL_TITLE'] = offer['location_address']
-    br.form['DEAL_TITLE'] = offer['location_latitude']
-    br.form['DEAL_TITLE'] = offer['location_longitude']
-    br.form['DEAL_TITLE'] = offer['sales_agent_name']
-    br.form['DEAL_TITLE'] = offer['sales_agent_email']
-    br.form['DEAL_TITLE'] = offer['price_currency']
-    br.form['DEAL_TITLE'] = offer['price_value']
-    br.form['DEAL_TITLE'] = offer['price_period']
-    br.form['DEAL_TITLE'] = offer['utilities_included']
-    br.form['DEAL_TITLE'] = offer['commission']
-    br.form['DEAL_TITLE'] = offer['room_furniture']
-    br.form['DEAL_TITLE'] = offer['water_supply']
-    br.form['DEAL_TITLE'] = offer['heating_supply']
-    br.form['DEAL_TITLE'] = offer['internet']
-    br.form['DEAL_TITLE'] = offer['area_value']
-    br.form['DEAL_TITLE'] = offer['area_unit']
-    br.form['DEAL_TITLE'] = offer['floor']
-    br.form['DEAL_TITLE'] = offer['floors_total']
-    br.form['DEAL_TITLE'] = offer['ceiling_height']
-    br.form['DEAL_TITLE'] = offer['phone']
-    br.form['DEAL_TITLE'] = offer['balcony']
-    br.form['DEAL_TITLE'] = offer['description']
-    br.form['DEAL_TITLE'] = offer['platnayaparkovka']
-    br.form['DEAL_TITLE'] = offer['komunalnieplategy']
-    br.form['DEAL_TITLE'] = offer['vhod']
-    br.form['DEAL_TITLE'] = offer['elektricheskayamoshnost']
-    br.form['DEAL_TITLE'] = offer['besplatnayaparkovka']
-    br.form['DEAL_TITLE'] = offer['municipalnayaparkovka']
-    br.form['DEAL_TITLE'] = offer['zapasnoyvhod']
-    br.form['DEAL_TITLE'] = offer['pandus']
-    br.form['DEAL_TITLE'] = offer['menedgerobekta']
-    br.form['DEAL_TITLE'] = offer['dostup24chasa']
-    br.form['DEAL_TITLE'] = offer['kondicioner']
-    br.form['DEAL_TITLE'] = offer['viddeyatelnosty']
-    br.form['DEAL_TITLE'] = offer['srokokupaemosty']
-    br.form['DEAL_TITLE'] = offer['dohodnost']
-    br.form['DEAL_TITLE'] = offer['takgepodhodit']
-    br.form['DEAL_TITLE'] = offer['podzemnayaparkovka']
-    br.form['DEAL_TITLE'] = offer['cenasnds']
-    br.form['DEAL_TITLE'] = offer['nazvanieobekta']
-    br.form['DEAL_TITLE'] = offer['BuildingClass']
-    br.form['DEAL_TITLE'] = offer['tipzdaniya']
-    br.form['DEAL_TITLE'] = offer['sostoyanie']
-    br.form['DEAL_TITLE'] = offer['visotapotolkov']
+    br.form['DEAL_UF_CRM_1571132316'] = offer['location_district']
+    br.form['DEAL_UF_CRM_1571132333'] = offer['location_locality_name']
+    br.form['DEAL_UF_CRM_1571132351'] = offer['location_sub_locality_name']
+    br.form['DEAL_UF_CRM_1571132375'] = offer['location_non_admin_sub_locality']
+    br.form['DEAL_UF_CRM_1571132396'] = offer['location_address']
+    br.form['DEAL_UF_CRM_1571132416'] = offer['location_latitude']
+    br.form['DEAL_UF_CRM_1571132436'] = offer['location_longitude']
+    br.form['DEAL_UF_CRM_1571132844'] = offer['sales_agent_name']
+    br.form['DEAL_UF_CRM_1571132928'] = offer['sales_agent_email']
+    br.form['DEAL_UF_CRM_1571132979'] = offer['price_currency']
+    br.form['DEAL_UF_CRM_1571132995'] = offer['price_value']
+    br.form['DEAL_UF_CRM_1571133004'] = offer['price_period']
+    br.form['DEAL_UF_CRM_1571133117'] = offer['utilities_included']
+    br.form['DEAL_UF_CRM_1571133129'] = offer['commission']
+    br.form['DEAL_UF_CRM_1571133139'] = offer['room_furniture']
+    br.form['DEAL_UF_CRM_1571133152'] = offer['water_supply']
+    br.form['DEAL_UF_CRM_1571133167'] = offer['heating_supply']
+    br.form['DEAL_UF_CRM_1571133180'] = offer['internet']
+    br.form['DEAL_UF_CRM_1571133206'] = offer['area_value']
+    br.form['DEAL_UF_CRM_1571133214'] = offer['area_unit']
+    br.form['DEAL_UF_CRM_1571133240'] = offer['floor']
+    br.form['DEAL_UF_CRM_1571133254'] = offer['floors_total']
+    br.form['DEAL_UF_CRM_1571133267'] = offer['ceiling_height']
+    br.form['DEAL_UF_CRM_1571133277'] = offer['phone']
+    br.form['DEAL_UF_CRM_1571133289'] = offer['balcony']
+    br.form['DEAL_COMMENTS'] = offer['description']
+    br.form['DEAL_UF_CRM_1571133472'] = offer['platnayaparkovka']
+    br.form['DEAL_UF_CRM_1571133482'] = offer['komunalnieplategy']
+    br.form['DEAL_UF_CRM_1571133491'] = offer['vhod']
+    br.form['DEAL_UF_CRM_1571133502'] = offer['elektricheskayamoshnost']
+    br.form['DEAL_UF_CRM_1571133512'] = offer['besplatnayaparkovka']
+    br.form['DEAL_UF_CRM_1571133522'] = offer['municipalnayaparkovka']
+    br.form['DEAL_UF_CRM_1571133533'] = offer['zapasnoyvhod']
+    br.form['DEAL_UF_CRM_1571133546'] = offer['pandus']
+    br.form['DEAL_UF_CRM_1571133558'] = offer['menedgerobekta']
+    br.form['DEAL_UF_CRM_1571133568'] = offer['dostup24chasa']
+    br.form['DEAL_UF_CRM_1571133591'] = offer['kondicioner']
+    br.form['DEAL_UF_CRM_1571133608'] = offer['viddeyatelnosty']
+    br.form['DEAL_UF_CRM_1571133618'] = offer['srokokupaemosty']
+    br.form['DEAL_UF_CRM_1571133630'] = offer['dohodnost']
+    br.form['DEAL_UF_CRM_1571133657'] = offer['takgepodhodit']
+    br.form['DEAL_UF_CRM_1571133682'] = offer['podzemnayaparkovka']
+    br.form['DEAL_UF_CRM_1571133693'] = offer['cenasnds']
+    br.form['DEAL_UF_CRM_1571133706'] = offer['nazvanieobekta']
+    br.form['DEAL_UF_CRM_1571133716'] = offer['BuildingClass']
+    br.form['DEAL_UF_CRM_1571133725'] = offer['tipzdaniya']
+    br.form['DEAL_UF_CRM_1571133736'] = offer['sostoyanie']
+    br.form['DEAL_UF_CRM_1571133750'] = offer['visotapotolkov']
 
     br.submit()
+
+def get_email_and_type(offer_dict):
+    return offer_dict['type'], offer_dict['sales_agent_email']
+
+
+
 
 
 if __name__ == "__main__":
     download_file('https://base.kvartus.ru/reklama/xml/base/9995/yrl_bitrix.xml')
+    i = 0
     for fff in ids_validation('old-ids.txt'):
-        print(get_offer_by_id(fff))
         send_offer(get_offer_by_id(fff))
-    #print(get_offer_by_id('https://base.kvartus.ru/reklama/xml/base/9995/yrl_bitrix.xml', 2949158))
+        i = i + 1
+        print(i)
+    #print(get_offer_by_id(3328870))
+
+
     os.remove('urls.xml')
 
 
