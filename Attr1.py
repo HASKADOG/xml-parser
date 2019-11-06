@@ -1,9 +1,11 @@
+#!/usr/bin/python3.5
 import wget
 import os
 from lxml import etree
 import re
 import mechanize
 from mechanize import Browser
+
 # https://base.kvartus.ru/reklama/xml/base/9995/yrl_bitrix.xml
 # This is my first comercial python script
 
@@ -89,7 +91,7 @@ def get_attrs(roots):
         if str(rootattr.get('internal-id')) == "None":
             oldId.close()
         else:
-            oldId.write(str(rootattr.get('internal-id')) + '\n')
+            oldId.write(str(rootattr.get('internal-id')) + '')
             oldId.close()
 
 
@@ -117,8 +119,8 @@ def get_new_ids():
 def get_old_ids(url):
     file = open(url, 'r')
     old = file.readlines()
-    #new_old = old.replace(',', '\n')
-    #old_ids = [old_id.replace(',', '') for old_id in new_old]
+    # new_old = old.replace(',', '\n')
+    # old_ids = [old_id.replace(',', '') for old_id in new_old]
 
     old_ids = str(old).split(',')
     return old_ids
@@ -133,7 +135,7 @@ def ids_validation(old_ids_url):
 
 # returns dictionary with the all required data
 def get_offer_by_id(id, root):
-    history = open('old-ids.txt', 'a')
+
    # with open('urls.xml', 'rb') as fobj:
        # xml = fobj.read()
 
@@ -145,8 +147,10 @@ def get_offer_by_id(id, root):
         if offered.attrib.get('internal-id') == str(id):
             skip = 0
             offer['offer_internal_id'] = offered.attrib.get('internal-id')
-            history.write(str(offered.attrib.get('internal-id')) + ",")
-            history.close()
+
+            #history.write(str(offered.attrib.get('internal-id')) + ",")
+
+
             for offer_body in offered.getchildren():
 
                 if offer_body.tag == shit + 'type' and offer_body.text:
@@ -331,14 +335,14 @@ def get_offer_by_id(id, root):
 
 
 def download_file(url):
-    wget.download(url, 'C:\\Users\\Cplasplas\\PycharmProjects\\untitled\\urls.xml')
-
+    wget.download(url, 'urls.xml')
+    #C:\\Users\\Cplasplas\\PycharmProjects\\untitled\\urls.xml
 
 def send_offer(offer):
     if offer:
         br = Browser()
         br.set_handle_robots(False)
-        br.open("https://bitrix24public.com/ask-nedvizhimost.bitrix24.ru/form/7_parsing_lotov_v_sdelki/kv2p46/")
+        br.open("https://bitrix24public.com/ask-nedvizhimost.bitrix24.ru/form/7_parsing_lotov_v_sdelki/kv2p45/")
         br.select_form(id="bxform")
         br.form['DEAL_UF_CRM_1571131808'] = offer['offer_internal_id']
         br.form['DEAL_UF_CRM_1571131826'] = offer['type']
@@ -425,11 +429,21 @@ if __name__ == "__main__":
     for fff in validated_ids:
         i += 1
         try:
+            history = open('old-ids.txt', 'a')
             send_offer(get_offer_by_id(fff, root))
+
+
+            history.close()
+            print(str(fff) + '   ' + str(i))
         except mechanize.HTTPError:
-            continue
-        print(i)
-    #send_ids(validated_ids)
+            validated_ids.remove(fff)
+            print(str(fff) + 'isn`t sent')
+    history = open('old-ids.txt', 'w')
+    history.write(',')
+    for his in get_new_ids():
+        history.write(str(his) + ",")
+    history.close()
+    send_ids(get_new_ids())
 
     #print(ids_validation('old-ids.txt'))
     #print(get_offer_by_id(8, root))

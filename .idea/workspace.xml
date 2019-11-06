@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7a304e30-1c78-4b0d-b93b-017fb2af6dad" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/print.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Attr.py" beforeDir="false" afterPath="$PROJECT_DIR$/Attr.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/old-ids.txt" beforeDir="false" afterPath="$PROJECT_DIR$/old-ids.txt" afterDir="false" />
@@ -45,6 +46,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RunDashboard">
@@ -59,7 +61,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.send_test">
+  <component name="RunManager" selected="Python.Attr1">
     <configuration name="form.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/untitled/form.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -85,7 +87,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Ids-test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="Attr1" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="untitled" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -98,7 +100,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Ids-test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Attr1.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -107,7 +109,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="Old-ids-test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="print" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="untitled" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -115,12 +117,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/venv" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/venv/Old-ids-test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/print.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -153,11 +155,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.send_test" />
+        <item itemvalue="Python.Attr1" />
         <item itemvalue="Python.Attr" />
+        <item itemvalue="Python.print" />
+        <item itemvalue="Python.send_test" />
         <item itemvalue="JavaScript Debug.form.html" />
-        <item itemvalue="Python.Ids-test" />
-        <item itemvalue="Python.Old-ids-test" />
       </list>
     </recent_temporary>
   </component>
@@ -178,7 +180,16 @@
       <workItem from="1571762377121" duration="6832000" />
       <workItem from="1571846865579" duration="12669000" />
       <workItem from="1571939524676" duration="18969000" />
-      <workItem from="1571997495565" duration="4527000" />
+      <workItem from="1571997495565" duration="5477000" />
+      <workItem from="1572091224913" duration="385000" />
+      <workItem from="1572092276929" duration="6649000" />
+      <workItem from="1572119186540" duration="3518000" />
+      <workItem from="1572208138333" duration="2896000" />
+      <workItem from="1572256246674" duration="1526000" />
+      <workItem from="1572376703657" duration="7686000" />
+      <workItem from="1572459100473" duration="27000" />
+      <workItem from="1572637420247" duration="232000" />
+      <workItem from="1572637706503" duration="19401000" />
     </task>
     <servers />
   </component>
@@ -200,8 +211,10 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/untitled$Ids_test.coverage" NAME="Ids-test Coverage Results" MODIFIED="1571853733193" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/untitled$Attr1.coverage" NAME="Attr1 Coverage Results" MODIFIED="1572715586508" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/untitled$Old_ids_test.coverage" NAME="Old-ids-test Coverage Results" MODIFIED="1571581180025" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/venv" />
-    <SUITE FILE_PATH="coverage/untitled$send_test.coverage" NAME="send_test Coverage Results" MODIFIED="1572005967802" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/untitled$Attr.coverage" NAME="Attr Coverage Results" MODIFIED="1572005390226" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/untitled$send_test.coverage" NAME="send_test Coverage Results" MODIFIED="1572380094880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/untitled$Attr.coverage" NAME="Attr Coverage Results" MODIFIED="1572691113671" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/untitled$print.coverage" NAME="print Coverage Results" MODIFIED="1572642620301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
